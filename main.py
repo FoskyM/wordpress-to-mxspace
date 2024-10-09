@@ -37,13 +37,12 @@ if __name__ == "__main__":
     # 请将 file_path 替换为你的 WordPress 导出文件路径
     file_path = "foskym039sblog.WordPress.2024-10-07.xml"
 
+    result = convert_to_bson(file_path, "output", migrate_pic_func, migrate_to_notes_func)
 
-    # result = convert_to_bson(file_path, "output", migrate_pic_func, migrate_to_notes_func)
-
-    # # 如果你不需要检查数据，可以把后面的注释了
-    # result = convert_keys_and_values(result)
-    # with open("output.json", "w") as f:
-    #     f.write(json.dumps(result, indent=4))
+    # 如果你不需要检查数据，可以把后面的注释了
+    result = convert_keys_and_values(result)
+    with open("output.json", "w") as f:
+        f.write(json.dumps(result, indent=4))
 
     # 扫描 uploads 文件夹，将图片文件名转换为 year_month_filename
     dir_path = "uploads"
