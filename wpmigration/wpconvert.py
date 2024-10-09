@@ -1,4 +1,4 @@
-from wpparser import wpparse
+from .wpparser import wpparse
 import os
 import re
 import json

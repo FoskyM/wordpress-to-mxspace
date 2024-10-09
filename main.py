@@ -1,5 +1,4 @@
-from wpconvert import convert_to_bson, convert_keys_and_values
-from wpfile import move_files_and_rename
+from wpmigration import convert_to_bson, convert_keys_and_values, move_files_and_rename
 import json
 
 def migrate_pic_func(pic_url):
@@ -38,7 +37,7 @@ if __name__ == "__main__":
     # 请将 file_path 替换为你的 WordPress 导出文件路径
     file_path = "foskym039sblog.WordPress.2024-10-07.xml"
 
-    
+
     # result = convert_to_bson(file_path, "output", migrate_pic_func, migrate_to_notes_func)
 
     # # 如果你不需要检查数据，可以把后面的注释了
