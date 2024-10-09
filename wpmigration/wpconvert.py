@@ -258,6 +258,8 @@ def _migrate_posts_to_notes(migrations, migrate_to_notes_func):
                     comment["refType"] = "notes"
 
 def _save_migrations_to_bson(migrations, output_dir):
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
     for key, value in migrations.items():
         file_path = os.path.join(output_dir, f"{key}.bson")
         with open(file_path, "wb") as f:

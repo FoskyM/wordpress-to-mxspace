@@ -5,6 +5,9 @@ def move_files_and_rename(
     target_dir_path: str, 
     rename_func: callable = None
 ):
+    if not os.path.exists(dir_path):
+        raise FileNotFoundError(f"{dir_path} not found.")
+    
     if os.path.exists(target_dir_path):
         for file_name in os.listdir(target_dir_path):
             os.remove(os.path.join(target_dir_path, file_name))
