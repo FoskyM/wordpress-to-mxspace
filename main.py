@@ -8,9 +8,7 @@ def migrate_pic_func(pic_url):
     new_pic_url = pic_url
     if pic_url.startswith("https://blog.fosky.top/wp-content/uploads/"):
         path = pic_url.split("/")
-        year = path[-3]
-        month = path[-2]
-        file_name = path[-1]
+        year, month, file_name = path[-3], path[-2], path[-1]
         pic_file_name = f"{year}_{month}_{file_name}"
         new_pic_url = f"https://space.local/api/v2/objects/file/{pic_file_name}"
 
@@ -45,7 +43,7 @@ if __name__ == "__main__":
         f.write(json.dumps(result, indent=4))
 
     # 扫描 uploads 文件夹，将图片文件名转换为 year_month_filename
-    dir_path = "uploads"
-    target_dir_path = "files"
+    wp_pic_dir_path = "uploads"
+    target_pic_dir_path = "files"
 
-    move_files_and_rename(dir_path, target_dir_path, rename_pic_file_func)
+    move_files_and_rename(wp_pic_dir_path, target_pic_dir_path, rename_pic_file_func)
