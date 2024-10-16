@@ -177,6 +177,7 @@ def _process_comments(result, migrations):
                 ref_id = next((ref["_id"] for ref in migrations["posts" if _type == 'post' else 'pages'] if ref["slug"] == item["post_name"]), None)
                 for comment in item["comments"]:
                     comment["content"] = markdownify(comment["content"])
+                    comment["content"] = comment["content"].replace("\\", "")
                     data = {
                         "_id": ObjectId(),
                         "ref": ref_id,
