@@ -62,6 +62,7 @@ def convert_to_bson(
     _link_comments(migrations)
     _assign_comment_keys(migrations)
     _migrate_posts_to_notes(migrations, migrate_to_notes_func)
+    _remove_posts_existed_in_notes(migrations)
     _save_migrations_to_bson(migrations, output_dir)
     return migrations
 
@@ -258,6 +259,12 @@ def _migrate_posts_to_notes(migrations, migrate_to_notes_func):
             for comment in migrations["comments"]:
                 if comment["ref"] == post["_id"]:
                     comment["refType"] = "notes"
+
+def _remove_posts_existed_in_notes(migrations):
+    for note in migrations["notes"]:
+        for post in migrations["posts"]:
+            if note["_id"] == post["_id"]:
+                migrations["posts"].remove(post)
 
 def _save_migrations_to_bson(migrations, output_dir):
     if not os.path.exists(output_dir):
