@@ -9,8 +9,14 @@ def migrate_pic_func(pic_url):
     if pic_url.startswith("https://blog.fosky.top/wp-content/uploads/"):
         path = pic_url.split("/")
         year, month, file_name = path[-3], path[-2], path[-1]
+        if "-" in file_name:
+            scale = file_name.split("-")[-1]
+            if scale == "scaled" or "x" in scale:
+                suffix = file_name.split(".")[-1]
+                file_name = "-".join(file_name.split("-")[:-1]) + f".{suffix}"
+
         pic_file_name = f"{year}_{month}_{file_name}"
-        new_pic_url = f"https://space.local/api/v2/objects/file/{pic_file_name}"
+        new_pic_url = f"https://space.fosky.top/api/v2/objects/file/{pic_file_name}"
 
     return new_pic_url
 
