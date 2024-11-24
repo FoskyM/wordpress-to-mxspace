@@ -46,7 +46,8 @@ def convert_to_bson(
     wp_xml_file_path: str, 
     output_dir: str = "output",
     migrate_pic_func: callable = None,
-    migrate_to_notes_func: callable = None
+    migrate_to_notes_func: callable = None,
+    migrate_draft_posts: bool = False
 ) -> dict:
     """
     将 WordPress 导出的 XML 文件转换为 BSON 格式
@@ -56,7 +57,7 @@ def convert_to_bson(
     tables = _process_tablepress_tables(result)
     _process_content(result, tables, migrate_pic_func)
     migrations = _create_migrations(result)
-    _process_posts(result, migrations)
+    _process_posts(result, migrations, migrate_draft_posts)
     _process_pages(result, migrations)
     _process_comments(result, migrations)
     _link_comments(migrations)
@@ -120,7 +121,11 @@ def _create_migrations(result):
     }
     return migrations
 
-def _process_posts(result, migrations):
+def _process_posts(
+    result, 
+    migrations, 
+    migrate_draft_posts: bool = False
+):
     for post in result["items"]["post"]:
         category_id = next((category["_id"] for category in migrations["categories"] if category["slug"] == post["categories"][0]), None)
         data = {
@@ -151,6 +156,10 @@ def _process_posts(result, migrations):
                 "custom_fields": post["custom_fields"],
             }
         }
+
+        if migrate_draft_posts and (post["status"] == "draft" or post["post_password"] == "trash"):
+            data["text"] = '' if data["text"] == None else data["text"]
+
         migrations["posts"].append(data)
 
 def _process_pages(result, migrations):

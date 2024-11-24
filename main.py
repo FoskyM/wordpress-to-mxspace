@@ -37,11 +37,13 @@ def rename_pic_file_func(year, month, file_name):
     """
     return f"{year}_{month}_{file_name}"
 
+MIGRATE_DRAFT_POSTS = False # 迁移草稿和回收站文章，一般情况下不需要。未测试迁移该项目后的数据有效性。
+
 if __name__ == "__main__":
     # 请将 file_path 替换为你的 WordPress 导出文件路径
     file_path = "foskym039sblog.WordPress.2024-10-07.xml"
 
-    result = convert_to_bson(file_path, "output", migrate_pic_func, migrate_to_notes_func)
+    result = convert_to_bson(file_path, "output", migrate_pic_func, migrate_to_notes_func, MIGRATE_DRAFT_POSTS)
 
     # 如果你不需要检查数据，可以把后面的注释了
     result = convert_keys_and_values(result)
