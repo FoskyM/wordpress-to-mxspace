@@ -6,7 +6,7 @@
 
 ## 使用方法
 1. 下载本仓库
-2. 使用 `pip install -f requirements.txt` 安装依赖
+2. 使用 `pip install -r requirements.txt` 安装依赖
 3. 修改 `main.py` 中的 `file_path` 为你的 wordpress 导出数据 xml 文件路径
 4. 修改 `main.py` 中的 `migrate_to_notes_func` `migrate_pic_func` `rename_pic_file_func` 中的逻辑
 5. 运行 `main.py`，获得 bson 文件，同时输出 `output.json` 可用于检查结构是否正确
